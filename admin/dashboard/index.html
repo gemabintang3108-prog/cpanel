@@ -96,10 +96,16 @@
 
 <main>
   <div class="table-container">
-    <h2>📋 Data Akun User</h2>
+    <h2 id="tableTitle">📋 Data Akun User</h2>
     <p id="lastUpdate" style="font-size:13px; color:#666;">Memuat data...</p>
-    <button onclick="loadUsers()">🔄 Refresh Data</button>
-    <table id="usersTable">
+    
+    <div style="margin-bottom:10px;">
+      <button onclick="loadUsers()">👥 Data User</button>
+      <button onclick="loadPanels()">🖥️ List Panel</button>
+      <button onclick="refreshCurrent()">🔄 Refresh</button>
+    </div>
+
+    <table id="dataTable">
       <thead>
         <tr>
           <th>#</th>
@@ -118,10 +124,22 @@
 </footer>
 
 <script>
+let currentMode = "users";
+
 async function loadUsers() {
-  const tbody = document.querySelector("#usersTable tbody");
+  currentMode = "users";
+  document.getElementById("tableTitle").textContent = "📋 Data Akun User";
+  const tbody = document.querySelector("#dataTable tbody");
   const last = document.getElementById("lastUpdate");
-  tbody.innerHTML = "<tr><td colspan='4'>⏳ Memuat...</td></tr>";
+  document.querySelector("#dataTable thead").innerHTML = `
+    <tr>
+      <th>#</th>
+      <th>Username</th>
+      <th>Password (hash)</th>
+      <th>Dibuat pada</th>
+    </tr>
+  `;
+  tbody.innerHTML = "<tr><td colspan='4'>⏳ Memuat data...</td></tr>";
   try {
     const token = localStorage.getItem("admin_token");
     if (!token) return (window.location.href = "/admin/login.html");
@@ -147,6 +165,60 @@ async function loadUsers() {
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="4" style="color:red;">❌ ${err.message}</td></tr>`;
   }
+}
+
+async function loadPanels() {
+  currentMode = "panels";
+  document.getElementById("tableTitle").textContent = "🖥️ List Panel Pterodactyl";
+  const tbody = document.querySelector("#dataTable tbody");
+  const last = document.getElementById("lastUpdate");
+  document.querySelector("#dataTable thead").innerHTML = `
+    <tr>
+      <th>#</th>
+      <th>Nama Server</th>
+      <th>User ID</th>
+      <th>RAM</th>
+      <th>CPU</th>
+      <th>Disk</th>
+      <th>Status</th>
+      <th>Dibuat</th>
+    </tr>
+  `;
+  tbody.innerHTML = "<tr><td colspan='8'>⏳ Memuat data panel...</td></tr>";
+  try {
+    const token = localStorage.getItem("admin_token");
+    if (!token) return (window.location.href = "/admin/login.html");
+
+    const res = await fetch("/api/getPanels", {
+      headers: { Authorization: "Bearer " + token }
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Gagal ambil data panel");
+
+    tbody.innerHTML = "";
+    data.panels.forEach((p, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${p.name}</td>
+        <td>${p.user_id}</td>
+        <td>${p.ram} MB</td>
+        <td>${p.cpu}%</td>
+        <td>${p.disk} MB</td>
+        <td>${p.status}</td>
+        <td>${new Date(p.created_at).toLocaleString()}</td>`;
+      tbody.appendChild(tr);
+    });
+    last.textContent = "Terakhir diperbarui: " + new Date().toLocaleTimeString();
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="8" style="color:red;">❌ ${err.message}</td></tr>`;
+  }
+}
+
+function refreshCurrent() {
+  if (currentMode === "panels") loadPanels();
+  else loadUsers();
 }
 
 function logout() {
