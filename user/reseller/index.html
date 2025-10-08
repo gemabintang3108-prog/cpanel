@@ -283,7 +283,7 @@ async function buatPanel() {
   const cfg = hargaPaket[paket];
   try {
     const res = await fetch(
-      `https://api.resellergaming.my.id/pterodactyl/addpanel?domain=https://tangsky.privatesrvr.xyz&plta=ptla_LhNvWdgnJD2ZmPMMhBapPyrZSVyWKr4JnC5bKobxt4W&username=${user}&disk=${cfg.disk}&cpu=${cfg.cpu}&ram=${cfg.ram}`
+      `https://tangsky.privatesrvr.xyz/pterodactyl/addpanel?domain=https://tangsky.privatesrvr.xyz&plta=ptla_LhNvWdgnJD2ZmPMMhBapPyrZSVyWKr4JnC5bKobxt4W&username=${user}&disk=${cfg.disk}&cpu=${cfg.cpu}&ram=${cfg.ram}`
     );
     const data = await res.json();
 
