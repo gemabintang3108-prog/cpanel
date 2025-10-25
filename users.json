@@ -8,5 +8,10 @@
     "username": "Buyer",
     "password": "$2a$10$N5MfoRUYbY2NJeVe3/VHJuo7eKS1j61DB5jwrz.7L6ZbyOHP5gob.",
     "created_at": "2025-10-20T15:13:06.974Z"
+  },
+  {
+    "username": "TESH",
+    "password": "$2a$10$HNvnrWqRw5kDGHPNPlazluELKJwHy9vbn1CFyBEXZjM9GvJZ7fY4a",
+    "created_at": "2025-10-25T01:08:18.471Z"
   }
 ]
