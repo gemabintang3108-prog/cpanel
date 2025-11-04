@@ -3,5 +3,10 @@
     "username": "Tangsky",
     "password": "$2a$10$MyRDTc9YTVLikiCOxnKrWuPH/h0SzBulvfYey.kbGFEkoWugh7Mp.",
     "created_at": "2025-10-08T12:36:50.265Z"
+  },
+  {
+    "username": "Buyer1",
+    "password": "$2a$10$R4D154vgMGqdLp2My9jsyOmL7At6JzE/GWqJ8L2NsXjmZq3kCYKbu",
+    "created_at": "2025-11-04T10:58:50.207Z"
   }
 ]
