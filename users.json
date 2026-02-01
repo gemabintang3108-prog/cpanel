@@ -8,5 +8,10 @@
     "username": "Buyer1",
     "password": "$2a$10$R4D154vgMGqdLp2My9jsyOmL7At6JzE/GWqJ8L2NsXjmZq3kCYKbu",
     "created_at": "2025-11-04T10:58:50.207Z"
+  },
+  {
+    "username": "Jembut",
+    "password": "$2a$10$qbBzWdZsYsMA.I3b9Wt4uOsStAGUeUOcSWO6ce./O/hNs./JHRcEm",
+    "created_at": "2026-02-01T16:39:40.353Z"
   }
 ]
